@@ -11,18 +11,65 @@
         <div>
             <asp:GridView runat="server" ShowFooter="True" AutoGenerateColumns="False" ID="GridView1" OnRowDataBound="GridView1_OnRowDataBound">
                 <Columns>
-                    <asp:BoundField HeaderText="Perfil" DataField="Perfil" runat="server" />
-                    <asp:BoundField HeaderText="Mes" DataField="Mes" runat="server" />
-                    <asp:BoundField HeaderText="Ano" DataField="Ano" runat="server" />
-                    <asp:BoundField HeaderText="CDI 12m" DataField="CDI12m" runat="server" />
-                    <asp:BoundField HeaderText="CDI 24m" DataField="CDI24m" runat="server" />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Label runat="server" Text='<%# Eval ("Perfil") %>'></asp:Label>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:DropDownList ID="ddlPerfil" runat="server">
+                            </asp:DropDownList>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Label runat="server" Text='<%# Eval ("Mes") %>'></asp:Label>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:DropDownList ID="ddlMes" runat="server"/>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Label runat="server" Text='<%# Eval ("Ano") %>'></asp:Label>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox ID="txtAno" runat="server"/>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Label runat="server" Text='<%# Eval ("CDI12m") %>'></asp:Label>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox ID="txtCDI12m" runat="server"/>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+                    
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Label runat="server" Text='<%# Eval ("CDI24m") %>'></asp:Label>
+                        </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox ID="txtCDI24m" runat="server"/>
+                        </FooterTemplate>
+                    </asp:TemplateField>
+
+
+                    <%--<asp:BoundField HeaderText="Perfil" DataField="Perfil" runat="server" />--%>
+                    <%--<asp:BoundField HeaderText="Mes" DataField="Mes" runat="server" />--%>
+                    <%--<asp:BoundField HeaderText="Ano" DataField="Ano" runat="server" />--%>
+                    <%--<asp:BoundField HeaderText="CDI 12m" DataField="CDI12m" runat="server" />--%>
+                    <%--<asp:BoundField HeaderText="CDI 24m" DataField="CDI24m" runat="server" />--%>
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:LinkButton runat="server" Text="Editar" ID="lnkEditar" OnClick="lnkEditar_OnClick" />
                         </ItemTemplate>
                         <FooterStyle HorizontalAlign="Right" />
                         <FooterTemplate>
-                            <asp:Button ID="ButtonAdd" runat="server" Text="Add New Row" OnClick="ButtonAdd_OnClick" />
+                            <asp:Button ID="ButtonAdd" runat="server"  Text="Add New Row" OnClick="ButtonAdd_OnClick" />
                         </FooterTemplate>
                     </asp:TemplateField>
 

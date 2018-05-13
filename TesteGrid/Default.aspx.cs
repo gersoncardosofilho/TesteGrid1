@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TesteGrid.Model;
 using TesteGrid.Repositories;
 
 namespace TesteGrid
@@ -19,6 +20,7 @@ namespace TesteGrid
             }
         }
 
+       
         private void Init()
         {
             ICarteiraRepositorio repo = new ICarteiraRepositorio();
@@ -65,7 +67,8 @@ namespace TesteGrid
 
         protected void GridView1_OnRowDataBound(object sender, GridViewRowEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+
+            if (e.Row.RowType == DataControlRowType.Footer)
             {
                 var ddl = e.Row.FindControl("ddlPerfil") as DropDownList;
                 if (ddl != null)
@@ -80,12 +83,41 @@ namespace TesteGrid
                     ddlMes.DataSource = new List<int> { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
                     ddlMes.DataBind();
                 }
+
+
             }
         }
 
         protected void ButtonAdd_OnClick(object sender, EventArgs e)
         {
-            AddNewRow();
+            GridViewRow row = (GridViewRow)((sender as Button).NamingContainer);
+
+            DropDownList ddl1 = (DropDownList)row.FindControl("ddlPerfil");
+            DropDownList ddl2 = (DropDownList)row.FindControl("ddlMes");
+            TextBox textboxAno = (TextBox)row.FindControl("txtAno");
+            TextBox textboxCDI12m = (TextBox)row.FindControl("txtCDI12m");
+            TextBox textboxCDI24m = (TextBox)row.FindControl("txtCDI24m");
+
+            Carteira carteira = new Carteira()
+            {
+                Perfil = ddl1.SelectedItem.Text,
+                Mes = Convert.ToInt16(ddl2.SelectedItem.Text),
+                Ano = Convert.ToInt16(textboxAno.Text),
+                CDI12m = Convert.ToDouble(textboxCDI12m.Text),
+                CDI24m = Convert.ToDouble(textboxCDI24m.Text)
+            };
+
+            ddl1.SelectedIndex = 0;
+            ddl2.SelectedIndex = 0;
+            textboxAno.Text = String.Empty;
+            textboxCDI12m.Text = String.Empty;
+            textboxCDI24m.Text = String.Empty;
+
+            ICarteiraRepositorio repo = new ICarteiraRepositorio();
+            repo.SaveCarteira(carteira);
+            Init();
+
+
         }
 
         private void AddNewRow()

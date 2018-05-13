@@ -41,5 +41,20 @@ namespace TesteGrid.Repositories
 
             return ds;
         }
+
+        public void SaveCarteira(Carteira carteira)
+        {
+            SqlConnection conn = new SqlConnection(ConnectionString());
+            conn.Open();
+
+            string query = String.Format("insert into tbCarteiras values ('{0}',{1},{2},{3},{4})", carteira.Perfil,
+                carteira.Mes, carteira.Ano, carteira.CDI12m, carteira.CDI24m);
+
+            SqlCommand command = new SqlCommand(query);
+            command.CommandType = CommandType.Text;
+            command.Connection = conn;
+            command.ExecuteNonQuery();
+
+        }
     }
 }
