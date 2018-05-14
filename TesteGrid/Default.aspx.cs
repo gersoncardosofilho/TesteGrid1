@@ -204,5 +204,30 @@ namespace TesteGrid
         {
             throw new NotImplementedException();
         }
+
+        protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+        {
+            GridView1.EditIndex = -1;
+            Init();
+        }
+
+        protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+        {
+            GridView1.EditIndex = e.NewEditIndex;
+            Init();
+        }
+
+        protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+        {
+            string perfil = ((DropDownList)GridView1.Rows[e.RowIndex].FindControl("ddlPerfil")).SelectedValue;
+            int mes = Convert.ToInt16(((DropDownList)GridView1.Rows[e.RowIndex].FindControl("ddlMes")).SelectedValue);
+            int ano = Convert.ToInt16(((TextBox)GridView1.Rows[e.RowIndex].FindControl("txtAno")).Text);
+            double cdi12m = Convert.ToDouble(((TextBox)GridView1.Rows[e.RowIndex].FindControl("txtCDI12m")).Text);
+            double cdi24m = Convert.ToDouble(((TextBox)GridView1.Rows[e.RowIndex].FindControl("txtCDI24m")).Text);
+
+            //TODO Update registro no banco
+
+            //TODO BIND na gridview
+        }
     }
 }
